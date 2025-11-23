@@ -1,6 +1,5 @@
 import Banner from "./componets/Banner";
 import Nav from "./componets/Nav";
-import Timer from "./componets/Timer";
 
 const App = () => {
   return (

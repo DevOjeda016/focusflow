@@ -1,32 +1,19 @@
 import { Tabs } from "@heroui/react";
+import { useEffect, useState } from "react";
 import Advice from "./Advice";
 import TaskSection from "./TaskSection";
 import type { Task } from "../types";
 import TimerSection from "./TImerSection";
 
-const tasks: Task[] = [
-  {
-    id: "1",
-    title: "Hacer ejercicio",
-    time: "25 minutos",
-    isPriority: true,
-  },
-  {
-    id: "2",
-    title: "Terminar tarea de matemáticas sobre integrales",
-    time: "25 minutos",
-    isPriority: false,
-  },
-  {
-    id: "3",
-    title: "Terminar tarea de matemáticas sobre integrales",
-    time: "25 minutos",
-    isPriority: false,
-    isCompleted: true,
-  },
-];
-
 const Nav = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/tasks")
+      .then((response) => response.json())
+      .then((data) => setTasks(data));
+  }, []);
+
   return (
     <Tabs className="w-full max-w-md flex flex-col gap-6">
       <Tabs.ListContainer>
