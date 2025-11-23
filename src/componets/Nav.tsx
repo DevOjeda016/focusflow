@@ -10,6 +10,7 @@ const Nav = () => {
   const [activeTab, setActiveTab] = useState("Tareas");
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   const [time, setTime] = useState(25 * 60);
+  const [initialTime, setInitialTime] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
 
   const handleStartTask = (task: Task) => {
@@ -43,17 +44,21 @@ const Nav = () => {
 
   const resetTimer = () => {
     setIsActive(false);
-    setTime(25 * 60);
+    setTime(initialTime);
   };
 
   const setCustomTime = (minutes: number) => {
     setIsActive(false);
-    setTime(minutes * 60);
+    const t = minutes * 60;
+    setTime(t);
+    setInitialTime(t);
   };
 
   useEffect(() => {
     if (activeTask) {
-      setTime(activeTask.time * 60);
+      const t = activeTask.time * 60;
+      setTime(t);
+      setInitialTime(t);
       setIsActive(true);
     }
   }, [activeTask]);
@@ -74,13 +79,19 @@ const Nav = () => {
   }, [isActive, time]);
 
   const handleToggleTaskCompletion = (taskId: string) => {
+    const task = tasks.find((t) => t.id === taskId);
+    if (!task) return;
+
+    if (!task.isCompleted) {
+      // Reset timer if completing a task
+      resetTimer();
+      if (activeTask?.id === taskId) {
+        setActiveTask(null);
+      }
+    }
+
     setTasks((prevTasks) =>
-      prevTasks.map((t) => {
-        if (t.id === taskId) {
-          return { ...t, isCompleted: !t.isCompleted };
-        }
-        return t;
-      })
+      prevTasks.map((t) => (t.id === taskId ? { ...t, isCompleted: !t.isCompleted } : t))
     );
   };
 
