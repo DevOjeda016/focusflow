@@ -4,6 +4,7 @@ import Advice from "./Advice";
 import TaskSection from "./TaskSection";
 import type { Task } from "../types";
 import TimerSection from "./TImerSection";
+import ProgressSection from "./ProgressSection";
 
 const Nav = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -138,7 +139,7 @@ const Nav = () => {
         />
       </Tabs.Panel>
       <Tabs.Panel className="p-0" id="Progreso">
-        <p>Progreso</p>
+        <ProgressSection tasks={tasks} />
       </Tabs.Panel>
     </Tabs>
   );
