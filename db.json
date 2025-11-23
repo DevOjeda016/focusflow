@@ -16,8 +16,29 @@
     },
     {
       "id": "3",
-      "title": "Terminar tarea de matemáticas sobre integrales",
-      "time": 25,
+      "title": "Leer un libro",
+      "time": 30,
+      "isPriority": false,
+      "isCompleted": true
+    },
+    {
+      "id": "4",
+      "title": "Planificar semana",
+      "time": 15,
+      "isPriority": true,
+      "isCompleted": false
+    },
+    {
+      "id": "5",
+      "title": "Responder correos",
+      "time": 20,
+      "isPriority": false,
+      "isCompleted": false
+    },
+    {
+      "id": "6",
+      "title": "Actualizar portafolio",
+      "time": 45,
       "isPriority": false,
       "isCompleted": true
     }

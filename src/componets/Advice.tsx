@@ -1,6 +1,10 @@
 import { Zap } from "lucide-react";
 
-const Advice = () => {
+interface AdviceProps {
+  highImpactCount: number;
+}
+
+const Advice = ({ highImpactCount }: AdviceProps) => {
   return (
     <div className="bg-surface shadow-surface px-4 py-6 flex items-center justify-between rounded-3xl gap-4">
       <div className="flex flex-col gap-1">
@@ -10,7 +14,7 @@ const Advice = () => {
         </div>
         <p className="text-xs">El 20% de tus tareas generan el 80% de resultados</p>
       </div>
-      <span className="text-accent font-bold text-2xl">1</span>
+      <span className="text-accent font-bold text-2xl">{highImpactCount}</span>
     </div>
   );
 };

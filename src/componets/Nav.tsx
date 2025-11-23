@@ -123,7 +123,7 @@ const Nav = () => {
           </Tabs.Tab>
         </Tabs.List>
       </Tabs.ListContainer>
-      <Advice />
+      <Advice highImpactCount={tasks.filter((t) => t.isPriority && !t.isCompleted).length} />
       <Tabs.Panel className="p-0" id="Tareas">
         <TaskSection tasks={tasks} onStartTask={handleStartTask} onToggleComplete={handleToggleTaskCompletion} />
       </Tabs.Panel>
