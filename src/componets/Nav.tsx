@@ -2,6 +2,7 @@ import { Tabs } from "@heroui/react";
 import Advice from "./Advice";
 import TaskSection from "./TaskSection";
 import type { Task } from "../types";
+import TimerSection from "./TImerSection";
 
 const tasks: Task[] = [
   {
@@ -45,13 +46,13 @@ const Nav = () => {
         </Tabs.List>
       </Tabs.ListContainer>
       <Advice />
-      <Tabs.Panel id="Tareas">
+      <Tabs.Panel className="p-0" id="Tareas">
         <TaskSection tasks={tasks} />
       </Tabs.Panel>
-      <Tabs.Panel id="Timer">
-        <p>Timer</p>
+      <Tabs.Panel className="p-0" id="Timer">
+        <TimerSection />
       </Tabs.Panel>
-      <Tabs.Panel id="Progreso">
+      <Tabs.Panel className="p-0" id="Progreso">
         <p>Progreso</p>
       </Tabs.Panel>
     </Tabs>
