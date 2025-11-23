@@ -13,6 +13,7 @@ const Nav = () => {
   const [time, setTime] = useState(25 * 60);
   const [initialTime, setInitialTime] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleStartTask = (task: Task) => {
     setActiveTask(task);
@@ -99,7 +100,14 @@ const Nav = () => {
   useEffect(() => {
     fetch("http://localhost:3000/tasks")
       .then((response) => response.json())
-      .then((data) => setTasks(data));
+      .then((data) => {
+        setTasks(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch tasks", err);
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -126,7 +134,7 @@ const Nav = () => {
       </Tabs.ListContainer>
       <Advice highImpactCount={tasks.filter((t) => t.isPriority && !t.isCompleted).length} />
       <Tabs.Panel className="p-0" id="Tareas">
-        <TaskSection tasks={tasks} onStartTask={handleStartTask} onToggleComplete={handleToggleTaskCompletion} />
+        <TaskSection tasks={tasks} onStartTask={handleStartTask} onToggleComplete={handleToggleTaskCompletion} isLoading={isLoading} />
       </Tabs.Panel>
       <Tabs.Panel className="p-0" id="Timer">
         <TimerSection

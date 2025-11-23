@@ -6,8 +6,9 @@ interface TaskSectionProps {
   tasks: Task[];
   onStartTask: (task: Task) => void;
   onToggleComplete: (taskId: string) => void;
+  isLoading: boolean;
 }
-const TaskSection = ({ tasks, onStartTask, onToggleComplete }: TaskSectionProps) => {
+const TaskSection = ({ tasks, onStartTask, onToggleComplete, isLoading }: TaskSectionProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <Card
@@ -21,6 +22,8 @@ const TaskSection = ({ tasks, onStartTask, onToggleComplete }: TaskSectionProps)
           onStartTask={onStartTask}
           onToggleComplete={onToggleComplete}
           emptyMessage="No hay actividades importantes"
+          isLoading={isLoading}
+          isPriority={true}
         />
       </Card>
       <Card
@@ -33,6 +36,7 @@ const TaskSection = ({ tasks, onStartTask, onToggleComplete }: TaskSectionProps)
           onStartTask={onStartTask}
           onToggleComplete={onToggleComplete}
           emptyMessage="No hay actividades secundarias"
+          isLoading={isLoading}
         />
       </Card>
       <Card
@@ -45,6 +49,7 @@ const TaskSection = ({ tasks, onStartTask, onToggleComplete }: TaskSectionProps)
           onStartTask={onStartTask}
           onToggleComplete={onToggleComplete}
           emptyMessage="No hay actividades completadas"
+          isLoading={isLoading}
         />
       </Card>
     </div>
