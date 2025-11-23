@@ -9,7 +9,7 @@ interface TaskSectionProps {
 }
 const TaskSection = ({ tasks, onStartTask, onToggleComplete }: TaskSectionProps) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <Card
         title="Tareas de alto impacto"
         description="El 20% de tus tareas generan el 80% de resultados"
@@ -20,7 +20,7 @@ const TaskSection = ({ tasks, onStartTask, onToggleComplete }: TaskSectionProps)
       </Card>
       <Card
         title="Tarea secundarias"
-        description="Estas tareas se pueden hacer durante el resto del día"
+        description="Estas tareas se pueden hacer durante el día"
         icon={<ListChecks className='text-accent' size={24} />}
       >
         <GroupTasks tasks={tasks.filter((task) => !task.isPriority && (!task.isCompleted || task.isCompleting))} onStartTask={onStartTask} onToggleComplete={onToggleComplete} />

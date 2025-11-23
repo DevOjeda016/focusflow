@@ -104,7 +104,7 @@ const Nav = () => {
 
   return (
     <Tabs
-      className="w-full max-w-md flex flex-col gap-6"
+      className="w-full max-w-md md:max-w-6xl flex flex-col gap-6"
       selectedKey={activeTab}
       onSelectionChange={(key) => setActiveTab(key as string)}
     >
