@@ -22,7 +22,11 @@ const Task = ({ title, time, isPriority, isCompleted }: TaskType) => {
           </div>
         </div>
       </div>
-      {!isCompleted && <button className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button"><Play className="m-auto text-white" size={24} /></button>}
+      {!isCompleted &&
+        <div className="w-12 h-12">
+          <button className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button"><Play className="m-auto text-white" size={24} /></button>
+        </div>
+      }
     </li>
   );
 };
