@@ -3,12 +3,16 @@ import type { Task } from "../types";
 
 interface TimerSectionProps {
   activeTask: Task | null;
-  onTimerComplete: () => void;
+  time: number;
+  isActive: boolean;
+  toggleTimer: () => void;
+  resetTimer: () => void;
+  setCustomTime: (minutes: number) => void;
 }
 
-const TimerSection = ({ activeTask, onTimerComplete }: TimerSectionProps) => {
+const TimerSection = (props: TimerSectionProps) => {
   return (
-    <Timer activeTask={activeTask} onTimerComplete={onTimerComplete} />
+    <Timer {...props} />
   )
 }
 

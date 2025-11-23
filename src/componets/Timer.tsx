@@ -1,64 +1,24 @@
 import { Button, Card } from "@heroui/react";
 import { Play, RotateCcw, Pause } from "lucide-react";
-import { useState, useEffect } from "react";
 import type { Task } from "../types";
 
 interface TimerProps {
   activeTask: Task | null;
-  onTimerComplete: () => void;
+  time: number;
+  isActive: boolean;
+  toggleTimer: () => void;
+  resetTimer: () => void;
+  setCustomTime: (minutes: number) => void;
 }
 
-const Timer = ({ activeTask, onTimerComplete }: TimerProps) => {
-  const [time, setTime] = useState(25 * 60);
-  const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    if (activeTask) {
-      const timeParts = activeTask.time.split(" ");
-      if (timeParts.length > 0) {
-        const minutes = parseInt(timeParts[0]);
-        if (!isNaN(minutes)) {
-          setTime(minutes * 60);
-          setIsActive(true);
-        }
-      }
-    }
-  }, [activeTask]);
-
-  useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-
-    if (isActive && time > 0) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 1);
-      }, 1000);
-    } else if (time === 0 && isActive) {
-      setIsActive(false);
-      onTimerComplete();
-    }
-
-    return () => clearInterval(interval);
-  }, [isActive, time, onTimerComplete]);
-
+const Timer = ({ time, isActive, toggleTimer, resetTimer, setCustomTime }: TimerProps) => {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const toggleTimer = () => {
-    setIsActive(!isActive);
-  };
 
-  const resetTimer = () => {
-    setIsActive(false);
-    setTime(25 * 60);
-  };
-
-  const setCustomTime = (minutes: number) => {
-    setIsActive(false);
-    setTime(minutes * 60);
-  };
 
   return (
     <Card className="w-full max-w-md flex flex-col items-center rounded-xl">

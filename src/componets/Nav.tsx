@@ -9,6 +9,8 @@ const Nav = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [activeTab, setActiveTab] = useState("Tareas");
   const [activeTask, setActiveTask] = useState<Task | null>(null);
+  const [time, setTime] = useState(25 * 60);
+  const [isActive, setIsActive] = useState(false);
 
   const handleStartTask = (task: Task) => {
     setActiveTask(task);
@@ -33,6 +35,53 @@ const Nav = () => {
         setActiveTask(null);
       }, 1500);
     }
+  };
+
+  const toggleTimer = () => {
+    setIsActive(!isActive);
+  };
+
+  const resetTimer = () => {
+    setIsActive(false);
+    setTime(25 * 60);
+  };
+
+  const setCustomTime = (minutes: number) => {
+    setIsActive(false);
+    setTime(minutes * 60);
+  };
+
+  useEffect(() => {
+    if (activeTask) {
+      setTime(activeTask.time * 60);
+      setIsActive(true);
+    }
+  }, [activeTask]);
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+
+    if (isActive && time > 0) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (time === 0 && isActive) {
+      setIsActive(false);
+      handleTimerComplete();
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, time]);
+
+  const handleToggleTaskCompletion = (taskId: string) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((t) => {
+        if (t.id === taskId) {
+          return { ...t, isCompleted: !t.isCompleted };
+        }
+        return t;
+      })
+    );
   };
 
   useEffect(() => {
@@ -65,10 +114,17 @@ const Nav = () => {
       </Tabs.ListContainer>
       <Advice />
       <Tabs.Panel className="p-0" id="Tareas">
-        <TaskSection tasks={tasks} onStartTask={handleStartTask} />
+        <TaskSection tasks={tasks} onStartTask={handleStartTask} onToggleComplete={handleToggleTaskCompletion} />
       </Tabs.Panel>
       <Tabs.Panel className="p-0" id="Timer">
-        <TimerSection activeTask={activeTask} onTimerComplete={handleTimerComplete} />
+        <TimerSection
+          activeTask={activeTask}
+          time={time}
+          isActive={isActive}
+          toggleTimer={toggleTimer}
+          resetTimer={resetTimer}
+          setCustomTime={setCustomTime}
+        />
       </Tabs.Panel>
       <Tabs.Panel className="p-0" id="Progreso">
         <p>Progreso</p>
