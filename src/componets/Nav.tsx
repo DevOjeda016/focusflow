@@ -98,7 +98,7 @@ const Nav = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3000/tasks")
+    fetch(import.meta.env.VITE_API_URL)
       .then((response) => response.json())
       .then((data) => {
         setTasks(data);
