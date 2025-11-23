@@ -4,7 +4,7 @@ import ModalForm from "./componets/ModalForm";
 
 const App = () => {
   return (
-    <div className="bg-background py-12 px-6 min-h-screen">
+    <div className="bg-background py-12 md:py-6 px-6 min-h-screen">
       <div className="w-full flex flex-col items-center gap-7">
         <Banner />
         <Nav />

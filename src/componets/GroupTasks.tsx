@@ -6,9 +6,14 @@ interface GroupTasksProps {
   tasks: TaskType[];
   onStartTask: (task: TaskType) => void;
   onToggleComplete: (taskId: string) => void;
+  emptyMessage?: string;
 }
 
-const GroupTasks = ({ tasks, onStartTask, onToggleComplete }: GroupTasksProps) => {
+const GroupTasks = ({ tasks, onStartTask, onToggleComplete, emptyMessage = "No hay actividades pendientes" }: GroupTasksProps) => {
+  if (tasks.length === 0) {
+    return <p className="text-sm text-gray-500 italic text-center py-4">{emptyMessage}</p>;
+  }
+
   return (
     <ul className="flex flex-col gap-2">
       {tasks.map((task) => (
