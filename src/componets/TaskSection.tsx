@@ -7,7 +7,7 @@ interface TaskSectionProps {
 }
 const TaskSection = ({ tasks }: TaskSectionProps) => {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <Card
         title="Tareas de alto impacto"
         description="El 20% de tus tareas generan el 80% de resultados"
@@ -30,7 +30,7 @@ const TaskSection = ({ tasks }: TaskSectionProps) => {
       >
         <GroupTasks tasks={tasks.filter((task) => task.isCompleted)} />
       </Card>
-    </>
+    </div>
   );
 };
 

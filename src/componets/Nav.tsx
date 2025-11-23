@@ -45,13 +45,13 @@ const Nav = () => {
         </Tabs.List>
       </Tabs.ListContainer>
       <Advice />
-      <Tabs.Panel className="pt-4" id="Tareas">
+      <Tabs.Panel id="Tareas">
         <TaskSection tasks={tasks} />
       </Tabs.Panel>
-      <Tabs.Panel className="pt-4" id="Timer">
+      <Tabs.Panel id="Timer">
         <p>Timer</p>
       </Tabs.Panel>
-      <Tabs.Panel className="pt-4" id="Progreso">
+      <Tabs.Panel id="Progreso">
         <p>Progreso</p>
       </Tabs.Panel>
     </Tabs>

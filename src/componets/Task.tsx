@@ -7,10 +7,10 @@ import type { Task as TaskType } from "../types";
 
 const Task = ({ title, time, isPriority, isCompleted }: TaskType) => {
   return (
-    <li className={cn('shadow-surface rounded-xl p-4 flex justify-between items-center gap-4', isPriority ? 'bg-warning-soft' : '')}>
+    <li className={cn('shadow-surface rounded-xl p-4 flex justify-between items-center gap-4', isPriority ? 'bg-warning-soft' : 'bg-accent-soft')}>
       <div className="flex items-center gap-4">
         <Checkbox isDisabled={isCompleted} defaultSelected={isCompleted} id="task">
-          <Checkbox.Control>
+          <Checkbox.Control className="size-6">
             <Checkbox.Indicator />
           </Checkbox.Control>
         </Checkbox>
@@ -22,7 +22,7 @@ const Task = ({ title, time, isPriority, isCompleted }: TaskType) => {
           </div>
         </div>
       </div>
-      {isCompleted && <button className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button"><Play className="m-auto text-white" size={24} /></button>}
+      {!isCompleted && <button className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button"><Play className="m-auto text-white" size={24} /></button>}
     </li>
   );
 };
