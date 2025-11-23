@@ -4,4 +4,5 @@ export interface Task {
   time: string;
   isPriority?: boolean;
   isCompleted?: boolean;
+  isCompleting?: boolean;
 }

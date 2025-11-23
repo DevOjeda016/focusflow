@@ -5,7 +5,11 @@ import { cn } from "@heroui/react";
 
 import type { Task as TaskType } from "../types";
 
-const Task = ({ title, time, isPriority, isCompleted }: TaskType) => {
+interface TaskProps extends TaskType {
+  onStart: () => void;
+}
+
+const Task = ({ title, time, isPriority, isCompleted, onStart }: TaskProps) => {
   return (
     <li className={cn('shadow-surface rounded-xl p-4 flex justify-between items-center gap-4', isPriority ? 'bg-warning-soft' : 'bg-accent-soft')}>
       <div className="flex items-center gap-4">
@@ -24,7 +28,7 @@ const Task = ({ title, time, isPriority, isCompleted }: TaskType) => {
       </div>
       {!isCompleted &&
         <div className="w-12 h-12">
-          <Button isIconOnly className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button">
+          <Button isIconOnly className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button" onPress={onStart}>
             <Play className="m-auto text-white" size={24} />
           </Button>
         </div>

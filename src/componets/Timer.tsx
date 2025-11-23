@@ -1,19 +1,77 @@
 import { Button, Card } from "@heroui/react";
-import { Play, RotateCcw } from "lucide-react";
+import { Play, RotateCcw, Pause } from "lucide-react";
+import { useState, useEffect } from "react";
+import type { Task } from "../types";
 
-const Timer = () => {
+interface TimerProps {
+  activeTask: Task | null;
+  onTimerComplete: () => void;
+}
+
+const Timer = ({ activeTask, onTimerComplete }: TimerProps) => {
+  const [time, setTime] = useState(25 * 60);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (activeTask) {
+      const timeParts = activeTask.time.split(" ");
+      if (timeParts.length > 0) {
+        const minutes = parseInt(timeParts[0]);
+        if (!isNaN(minutes)) {
+          setTime(minutes * 60);
+          setIsActive(true);
+        }
+      }
+    }
+  }, [activeTask]);
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+
+    if (isActive && time > 0) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (time === 0 && isActive) {
+      setIsActive(false);
+      onTimerComplete();
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, time, onTimerComplete]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const toggleTimer = () => {
+    setIsActive(!isActive);
+  };
+
+  const resetTimer = () => {
+    setIsActive(false);
+    setTime(25 * 60);
+  };
+
+  const setCustomTime = (minutes: number) => {
+    setIsActive(false);
+    setTime(minutes * 60);
+  };
+
   return (
     <Card className="w-full max-w-md flex flex-col items-center rounded-xl">
       <h2 className="text-2xl font-bold text-center">Temporizador</h2>
       <p className="text-sm">Limita tu tiempo para ser más eficiente</p>
       <div className="flex w-full flex-col gap-2 items-center bg-accent-soft p-4 rounded-xl shadow-accent-soft">
-        <span className="text-7xl font-bold text-center text-accent">25:00</span>
+        <span className="text-7xl font-bold text-center text-accent">{formatTime(time)}</span>
         <div className="flex gap-2 w-full justify-center">
-          <Button type="button" variant="primary">
-            <Play size={24} />
-            Iniciar
+          <Button type="button" variant="primary" onPress={toggleTimer}>
+            {isActive ? <Pause size={24} /> : <Play size={24} />}
+            {isActive ? "Pausar" : "Iniciar"}
           </Button>
-          <Button type="button" variant="secondary">
+          <Button type="button" variant="secondary" onPress={resetTimer}>
             <RotateCcw size={24} />
             Reanudar
           </Button>
@@ -22,15 +80,15 @@ const Timer = () => {
       <div className="flex flex-col gap-2 items-center">
         <p className="text-sm text-center font-bold">Bloques de tiempo sugeridos</p>
         <div className="flex gap-2 flex-wrap justify-center">
-          <Button type="button" variant="tertiary">
+          <Button type="button" variant="tertiary" onPress={() => setCustomTime(15)}>
             <Play size={24} />
             15 minutos
           </Button>
-          <Button type="button" variant="tertiary">
+          <Button type="button" variant="tertiary" onPress={() => setCustomTime(25)}>
             <Play size={24} />
             25 minutos
           </Button>
-          <Button type="button" variant="tertiary">
+          <Button type="button" variant="tertiary" onPress={() => setCustomTime(30)}>
             <Play size={24} />
             30 minutos
           </Button>
