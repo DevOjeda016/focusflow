@@ -1,5 +1,29 @@
 import { Tabs } from "@heroui/react";
 import Advice from "./Advice";
+import TaskSection from "./TaskSection";
+import type { Task } from "../types";
+
+const tasks: Task[] = [
+  {
+    id: "1",
+    title: "Hacer ejercicio",
+    time: "25 minutos",
+    isPriority: true,
+  },
+  {
+    id: "2",
+    title: "Terminar tarea de matemáticas sobre integrales",
+    time: "25 minutos",
+    isPriority: false,
+  },
+  {
+    id: "3",
+    title: "Terminar tarea de matemáticas sobre integrales",
+    time: "25 minutos",
+    isPriority: false,
+    isCompleted: true,
+  },
+];
 
 const Nav = () => {
   return (
@@ -22,7 +46,7 @@ const Nav = () => {
       </Tabs.ListContainer>
       <Advice />
       <Tabs.Panel className="pt-4" id="Tareas">
-        <p>Lista de tareas</p>
+        <TaskSection tasks={tasks} />
       </Tabs.Panel>
       <Tabs.Panel className="pt-4" id="Timer">
         <p>Timer</p>

@@ -1,0 +1,37 @@
+import Card from "./Card";
+import { Check, ListChecks, TrendingUp } from "lucide-react";
+import GroupTasks from "./GroupTasks";
+import type { Task } from "../types";
+interface TaskSectionProps {
+  tasks: Task[];
+}
+const TaskSection = ({ tasks }: TaskSectionProps) => {
+  return (
+    <>
+      <Card
+        title="Tareas de alto impacto"
+        description="El 20% de tus tareas generan el 80% de resultados"
+        icon={<TrendingUp className='text-warning' size={24} />}
+        isPriority={true}
+      >
+        <GroupTasks tasks={tasks.filter((task) => task.isPriority && !task.isCompleted)} />
+      </Card>
+      <Card
+        title="Tarea secundarias"
+        description="Estas tareas se pueden hacer durante el resto del día"
+        icon={<ListChecks className='text-accent' size={24} />}
+      >
+        <GroupTasks tasks={tasks.filter((task) => !task.isCompleted && !task.isPriority)} />
+      </Card>
+      <Card
+        title="Tarea completadas"
+        description="Estas actividades ya han sido completadas"
+        icon={<Check className='text-accent' size={24} />}
+      >
+        <GroupTasks tasks={tasks.filter((task) => task.isCompleted)} />
+      </Card>
+    </>
+  );
+};
+
+export default TaskSection;

@@ -1,5 +1,6 @@
 import Banner from "./componets/Banner";
 import Nav from "./componets/Nav";
+
 const App = () => {
   return (
     <div className="bg-background py-12 px-6">
