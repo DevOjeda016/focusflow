@@ -12,7 +12,7 @@ interface TaskProps extends TaskType {
 
 const Task = ({ title, time, isPriority, isCompleted, onStart, onToggleComplete }: TaskProps) => {
   return (
-    <li className={cn('shadow-surface rounded-xl p-4 flex justify-between items-center gap-4', isPriority ? 'bg-warning-soft' : 'bg-accent-soft')}>
+    <li className={cn('shadow-surface rounded-xl p-4 flex justify-between items-center gap-4', isCompleted ? 'bg-white' : (isPriority ? 'bg-warning-soft' : 'bg-accent-soft'))}>
       <div className="flex items-center gap-4">
         <Checkbox isDisabled={isCompleted} isSelected={isCompleted} onChange={onToggleComplete} id="task">
           <Checkbox.Control className="size-6">
