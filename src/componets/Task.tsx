@@ -1,4 +1,4 @@
-import { Button, Checkbox } from "@heroui/react";
+import { Button, Checkbox, Tooltip } from "@heroui/react";
 import { Label } from "@heroui/react";
 import { Play } from "lucide-react";
 import { cn } from "@heroui/react";
@@ -29,9 +29,14 @@ const Task = ({ title, time, isPriority, isCompleted, onStart, onToggleComplete 
       </div>
       {!isCompleted &&
         <div className="w-12 h-12">
-          <Button isIconOnly className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button" onPress={onStart}>
-            <Play className="m-auto text-white" size={24} />
-          </Button>
+          <Tooltip>
+            <Button isIconOnly className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button" onPress={onStart}>
+              <Play className="m-auto text-white" size={24} />
+            </Button>
+            <Tooltip.Content>
+              <p>Iniciar tarea</p>
+            </Tooltip.Content>
+          </Tooltip>
         </div>
       }
     </li>

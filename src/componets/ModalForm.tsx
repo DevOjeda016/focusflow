@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Checkbox, Description, Input, Label, Modal, NumberField, Surface, TextField } from "@heroui/react";
+import { Button, Checkbox, Description, Input, Label, Modal, NumberField, Surface, TextField, Tooltip } from "@heroui/react";
 import { Plus, NotebookTabs } from "lucide-react";
 import { useState } from "react";
 import type { Task } from "../types";
@@ -63,9 +63,14 @@ const ModalForm = () => {
 
   return (
     <Modal>
-      <Button className='fixed bottom-6 right-6' isIconOnly={true} size="lg">
-        <Plus size={24} />
-      </Button>
+      <Tooltip>
+        <Button className='fixed bottom-6 right-6' isIconOnly={true} size="lg">
+          <Plus size={24} />
+        </Button>
+        <Tooltip.Content>
+          <p>Agregar tarea</p>
+        </Tooltip.Content>
+      </Tooltip>
       <Modal.Container placement="auto" backdropClassName='h-screen' >
         <Modal.Dialog className="sm:max-w-md">
           {({ close }) => (
