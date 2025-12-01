@@ -30,7 +30,13 @@ const Task = ({ title, time, isPriority, isCompleted, onStart, onToggleComplete 
       {!isCompleted &&
         <div className="w-12 h-12">
           <Tooltip>
-            <Button isIconOnly className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")} type="button" onPress={onStart}>
+            <Button
+              isIconOnly
+              className={cn("rounded-xl p-2 w-12 h-12", isPriority ? "bg-warning" : "bg-accent")}
+              type="button"
+              aria-label="Iniciar tarea"
+              onPress={onStart}
+            >
               <Play className="m-auto text-white" size={24} />
             </Button>
             <Tooltip.Content>

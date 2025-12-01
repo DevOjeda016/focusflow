@@ -64,7 +64,12 @@ const ModalForm = () => {
   return (
     <Modal>
       <Tooltip>
-        <Button className='fixed bottom-6 right-6' isIconOnly={true} size="lg">
+        <Button
+          className='fixed bottom-6 right-6'
+          isIconOnly={true}
+          size="lg"
+          aria-label="Agregar nueva tarea"
+        >
           <Plus size={24} />
         </Button>
         <Tooltip.Content>
